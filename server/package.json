@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "sls offline start"
+    "start": "sls offline start",
+    "deploy:dev": "sls deploy --stage dev"
   },
   "keywords": [],
   "author": "Thais Kotovicz <thais_kotovicz@hotmail.com>",
