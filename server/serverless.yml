@@ -6,6 +6,17 @@ provider:
   name: aws
   runtime: nodejs18.x
 
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: "AWS::ApiGateway::GatewayResponse"
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: ApiGatewayRestApi
+
 plugins:
   - serverless-offline
 
@@ -16,12 +27,12 @@ functions:
       - http:
           path: api/v1/payroll
           method: get
-  getPayrollByManager:
-    handler: src/lambdas/getPayrollByManager.handler
-    events:
-      - http:
-          path: api/v1/payroll/{id}
-          method: get
+  # getPayrollByManager:
+  #   handler: src/lambdas/getPayrollByManager.handler
+  #   events:
+  #     - http:
+  #         path: api/v1/payroll/{id}
+  #         method: get
 
 
 #    The following are a few example events you can configure

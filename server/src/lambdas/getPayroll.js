@@ -1,17 +1,16 @@
-import getPayroll from "../services/getPayroll";
-import { StatusCodes } from 'http-status-codes';
+const getPayroll = require('../services/getPayroll');
 
 module.exports.handler = async (event) => {
   try {
     const result = await getPayroll();
     return {
-      statusCode: StatusCodes.OK,
+      statusCode: 200,
       body: JSON.stringify({ data: result })
     };
 
   } catch (error) {
     return {
-      statusCode: StatusCodes.BAD_REQUEST,
+      statusCode: 500,
       body: JSON.stringify({ error: error.message })
     };
   }

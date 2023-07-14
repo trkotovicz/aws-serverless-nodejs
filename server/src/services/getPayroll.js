@@ -1,10 +1,13 @@
-import Payroll from '../db/Payroll';
+const Payroll = require('../db/Payroll');
 
-export default async function getPayroll() {
+async function getPayroll() {
   try {
     const employeesList = await Payroll.findAll();
     return employeesList;
   } catch (error) {
     console.error(`Error: ${error}`);
+    throw new Error(`Error fetching payroll: ${error.message}`);
   }
 }
+
+module.exports = getPayroll;

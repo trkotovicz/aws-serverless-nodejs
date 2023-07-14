@@ -1,36 +1,47 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('./config');
 
-const Payroll = sequelize.define('payroll', {
-  matricula: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
+const Payroll = sequelize.define('payroll',
+  {
+    matricula: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    nome: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    emailGestor: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    dataAdmissao: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    dataRecisao: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    cargo: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  managerEmail: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  admissionDate: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  rescissionDate: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
-  role: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
+  {
+    tableName: 'payroll',
+    underscored: true,
+    timestamps: false,
+  }
+);
 
 module.exports = Payroll;
