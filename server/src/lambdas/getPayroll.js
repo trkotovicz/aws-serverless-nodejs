@@ -1,16 +1,17 @@
-const dataPromise = require("../utils/payrollData");
+import getPayroll from "../services/getPayroll";
+import { StatusCodes } from 'http-status-codes';
 
 module.exports.handler = async (event) => {
   try {
-    const result = await dataPromise;
-
+    const result = await getPayroll();
     return {
-      statusCode: 200,
+      statusCode: StatusCodes.OK,
       body: JSON.stringify({ data: result })
     };
+
   } catch (error) {
     return {
-      statusCode: 500,
+      statusCode: StatusCodes.BAD_REQUEST,
       body: JSON.stringify({ error: error.message })
     };
   }

@@ -10,17 +10,17 @@ plugins:
   - serverless-offline
 
 functions:
-  listPayroll:
-    handler: src/lambdas/listPayroll.handler
+  getPayroll:
+    handler: src/lambdas/getPayroll.handler
     events:
       - http:
-          path: list-payroll
+          path: api/v1/payroll
           method: get
-  listPayrollByManager:
-    handler: src/lambdas/listPayrollByManager.handler
+  getPayrollByManager:
+    handler: src/lambdas/getPayrollByManager.handler
     events:
       - http:
-          path: list-payroll/{id}
+          path: api/v1/payroll/{id}
           method: get
 
 
