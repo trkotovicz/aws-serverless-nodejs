@@ -1,4 +1,4 @@
-matricula,status,nome,email,email_gestor,data_admissao,data_rescisao,cargo
+matricula,status,nome,email,email_gestor,data_admissao,data_recisao,cargo
 0,ativo,Danielle Winters,daniellewinters@kpis.tech,,06/10/2021,,Diretor
 1,inativo,Pamela Berry,pamelaberry@kpis.tech,sharonbarr@kpis.tech,01/08/2021,17/07/2022,Engenheiro
 2,ativo,Richard Manning,richardmanning@kpis.tech,sharonbarr@kpis.tech,28/01/2020,,Engenheiro
