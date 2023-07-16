@@ -1,17 +1,22 @@
-const Payroll = require('../db/Payroll');
+const getPayroll = require('./getPayroll');
 
-async function identifyEmployee(email) {
-  const employee = await Payroll.findOne({ where: { email: email } });
-  if (!employee) throw new Error(`Email ${email} not found`);
-  return employee;
-}
+const findEmployeesByManager = async (email) => {
+  const employees = await getPayroll();
 
-async function findEmployeesByManager(email) {
-  const user = await identifyEmployee(email);
-  const employees = await Payroll.findAll({
-    where: { emailGestor: user.emailGestor }
-  });
-  return employees;
-}
+  const buildHierarchy = (employees, managerEmail) => {
+    const subordinates = employees.filter((employee) => employee.emailGestor === managerEmail);
+    for (const subordinate of subordinates) {
+      subordinate.subordinates = buildHierarchy(employees, subordinate.email);
+    }
+    return subordinates;
+  };
+
+  const topLevelEmployees = employees.filter((employee) => employee.emailGestor === email);
+  for (const employee of topLevelEmployees) {
+    employee.subordinates = buildHierarchy(employees, employee.email);
+  }
+
+  return topLevelEmployees;
+};
 
 module.exports = findEmployeesByManager;

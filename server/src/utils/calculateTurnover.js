@@ -3,16 +3,24 @@ const moment = require('moment');
 const calculateTurnover = (employees, headcount) => {
   const turnoverByMonth = {};
 
-  employees.forEach((employee) => {
-    const { dataRecisao } = employee;
-    if (dataRecisao) {
-      const monthKey = moment(dataRecisao).format('YYYY-MM');
-      if (!turnoverByMonth[monthKey]) {
-        turnoverByMonth[monthKey] = 0;
+  const calculateSubordinatesTurnover = (subordinates) => {
+    subordinates.forEach((employee) => {
+      const { dataRecisao } = employee;
+      if (dataRecisao) {
+        const monthKey = moment(dataRecisao).format('YYYY-MM');
+        if (!turnoverByMonth[monthKey]) {
+          turnoverByMonth[monthKey] = 0;
+        }
+        turnoverByMonth[monthKey]++;
       }
-      turnoverByMonth[monthKey]++;
-    }
-  });
+
+      if (employee.subordinates && employee.subordinates.length > 0) {
+        calculateSubordinatesTurnover(employee.subordinates);
+      }
+    });
+  };
+
+  calculateSubordinatesTurnover(employees);
 
   const turnover = headcount.map(({ month, count }) => ({
     month,
