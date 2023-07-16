@@ -33,6 +33,18 @@ functions:
       - http:
           path: api/v1/payroll/{email}
           method: get
+  getHeadcount:
+    handler: src/lambdas/getHeadcount.handler
+    events:
+      - http:
+          path: api/v1/payroll/headcount/{email}
+          method: get
+  getTurnover:
+    handler: src/lambdas/getTurnover.handler
+    events:
+      - http:
+          path: api/v1/payroll/turnover/{email}
+          method: get
 
 
 #    The following are a few example events you can configure
