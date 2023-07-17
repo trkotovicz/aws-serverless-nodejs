@@ -15,6 +15,7 @@ resources:
       Properties:
         ResponseParameters:
           gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
         ResponseType: DEFAULT_4XX
         RestApiId:
           Ref: ApiGatewayRestApi
@@ -49,6 +50,7 @@ functions:
       - http:
           path: /api/v1/payroll
           method: get
+          cors: true
           documentation:
             summary: "Folha de pagamento"
             description: "Lista a folha de pagamento completa"
@@ -67,6 +69,7 @@ functions:
       - http:
           path: /api/v1/payroll/{email}
           method: get
+          cors: true
           documentation:
             summary: "Folha de pagamento por líder"
             description: "Lista a folha de pagamento dos subordinados"
@@ -90,6 +93,7 @@ functions:
       - http:
           path: /api/v1/payroll/headcount/{email}
           method: get
+          cors: true
           documentation:
             summary: "Headcount por líder"
             description: "Calcula o headcount por líder"
@@ -113,6 +117,7 @@ functions:
       - http:
           path: /api/v1/payroll/turnover/{email}
           method: get
+          cors: true
           documentation:
             summary: "Turnover por líder"
             description: "Calcula o turnover por líder"

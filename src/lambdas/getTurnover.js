@@ -6,6 +6,10 @@ module.exports.handler = async (event) => {
     const turnover = await getTurnover(email);
     return {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
       body: JSON.stringify({ turnover }),
     };
 
