@@ -1,0 +1,8 @@
+{
+  "turnover": [
+    {
+      "month": "string",
+      "value": "number"
+    }
+  ]
+}

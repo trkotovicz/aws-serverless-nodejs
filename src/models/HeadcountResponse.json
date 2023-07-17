@@ -1,0 +1,8 @@
+{
+  "headcount": [
+    {
+      "month": "string",
+      "count": "integer"
+    }
+  ]
+}

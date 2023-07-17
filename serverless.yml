@@ -1,3 +1,5 @@
+org: thaiskotovicz
+app: payroll-charts
 service: payroll-charts
 
 frameworkVersion: "3"
@@ -19,82 +21,111 @@ resources:
 
 plugins:
   - serverless-offline
+  - serverless-openapi-documentation
+
+custom:
+  documentation:
+    version: '1'
+    title: 'Payroll Charts'
+    description: 'API que lista o headcount e turnover por liderados diretos e indiretos'
+    models:
+      - name: "PayrollResponse"
+        description: "Folha de pagamento"
+        contentType: "application/json"
+        schema: ${file(src/models/PayrollResponse.json)}
+      - name: "HeadcountResponse"
+        description: "Headcount"
+        contentType: "application/json"
+        schema: ${file(src/models/HeadcountResponse.json)}
+      - name: "TurnoverResponse"
+        description: "Turnover"
+        contentType: "application/json"
+        schema: ${file(src/models/TurnoverResponse.json)}
 
 functions:
   getPayroll:
     handler: src/lambdas/getPayroll.handler
     events:
       - http:
-          path: api/v1/payroll
+          path: /api/v1/payroll
           method: get
+          documentation:
+            summary: "Folha de pagamento"
+            description: "Lista a folha de pagamento completa"
+            methodResponses:
+              - statusCode: 200
+                responseBody:
+                  description: "A employees array with its informations and manager email"
+                responseModels:
+                  application/json: "PayrollResponse"
+              - statusCode: 500
+                description: "An error message request fails"
+
   getPayrollByManager:
     handler: src/lambdas/getPayrollByManager.handler
     events:
       - http:
-          path: api/v1/payroll/{email}
+          path: /api/v1/payroll/{email}
           method: get
+          documentation:
+            summary: "Folha de pagamento por líder"
+            description: "Lista a folha de pagamento dos subordinados"
+            pathParams:
+              - name: "email"
+                description: "Email do supervisor"
+                schema:
+                  type: "string"
+            methodResponses:
+              - statusCode: 200
+                responseBody:
+                  description: "A employees array with its informations and manager email"
+                responseModels:
+                  application/json: "PayrollResponse"
+              - statusCode: 500
+                description: "An error message request fails"
+
   getHeadcount:
     handler: src/lambdas/getHeadcount.handler
     events:
       - http:
-          path: api/v1/payroll/headcount/{email}
+          path: /api/v1/payroll/headcount/{email}
           method: get
+          documentation:
+            summary: "Headcount por líder"
+            description: "Calcula o headcount por líder"
+            pathParams:
+              - name: "email"
+                description: "Email do supervisor"
+                schema:
+                  type: "string"
+            methodResponses:
+              - statusCode: 200
+                responseBody:
+                  description: "A headcount array by month"
+                responseModels:
+                  application/json: "HeadcountResponse"
+              - statusCode: 500
+                description: "An error message request fails"
+
   getTurnover:
     handler: src/lambdas/getTurnover.handler
     events:
       - http:
-          path: api/v1/payroll/turnover/{email}
+          path: /api/v1/payroll/turnover/{email}
           method: get
-
-
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
-#    events:
-#      - httpApi:
-#          path: /users/create
-#          method: get
-#      - websocket: $connect
-#      - s3: ${env:BUCKET}
-#      - schedule: rate(10 minutes)
-#      - sns: greeter-topic
-#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
-#      - alexaSkill: amzn1.ask.skill.xx-xx-xx-xx
-#      - alexaSmartHome: amzn1.ask.skill.xx-xx-xx-xx
-#      - iot:
-#          sql: "SELECT * FROM 'some_topic'"
-#      - cloudwatchEvent:
-#          event:
-#            source:
-#              - "aws.ec2"
-#            detail-type:
-#              - "EC2 Instance State-change Notification"
-#            detail:
-#              state:
-#                - pending
-#      - cloudwatchLog: '/aws/lambda/hello'
-#      - cognitoUserPool:
-#          pool: MyUserPool
-#          trigger: PreSignUp
-#      - alb:
-#          listenerArn: arn:aws:elasticloadbalancing:us-east-1:XXXXXX:listener/app/my-load-balancer/50dc6c495c0c9188/
-#          priority: 1
-#          conditions:
-#            host: example.com
-#            path: /hello
-
-#    Define function environment variables here
-#    environment:
-#      variable2: value2
-
-# you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
+          documentation:
+            summary: "Turnover por líder"
+            description: "Calcula o turnover por líder"
+            pathParams:
+              - name: "email"
+                description: "Email do supervisor"
+                schema:
+                  type: "string"
+            methodResponses:
+              - statusCode: 200
+                responseBody:
+                  description: "A turnover array by month"
+                responseModels:
+                  application/json: "TurnoverResponse"
+              - statusCode: 500
+                description: "An error message request fails"

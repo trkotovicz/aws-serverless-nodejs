@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "matricula": "integer",
+      "status": "string",
+      "nome": "string",
+      "email": "string",
+      "emailGestor": "string",
+      "dataAdmissao": "string",
+      "dataRecisao": "string",
+      "cargo": "string"
+    }
+  ]
+}
