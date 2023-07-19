@@ -1,7 +1,7 @@
 
 # People Analytics Serverless
 
-Essa aplicação é uma API que faz a análise de dados da folha de pagamentos de uma empresa. Ela é capas de calcular o **Headcount** e o **Turnover** de cada gestor da empresa.
+Essa aplicação é uma API que faz a análise de dados da folha de pagamentos de uma empresa. Ela é capaz de calcular o **Headcount** e o **Turnover** de cada gestor da empresa.
 
 Para sua utilização, é necessário entrar com o email do gestor e, à partir dele, é feito uma busca dos seus liderados (diretos e indiretos) e então, com esses dados, é feito o cálculo do **Turnover** e **Headcount**.
 
