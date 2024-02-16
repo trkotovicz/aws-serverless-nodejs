@@ -7,11 +7,11 @@ Para sua utilização, é necessário entrar com o email do gestor e, à partir 
 
 ## Ferramentas utilizadas
 
-A aplicação foi desenvolvida em Node.js, com o uso do Serverless Framework. O servidor está hospedado na AWS, assim como o banco de dados (PostgreSQL). Além disso, utilizei o ORM Sequelize.
+A aplicação foi desenvolvida em Node.js, com o uso do Serverless Framework. O servidor foi desenvolvido para ser hospedado na AWS, assim como o banco de dados (PostgreSQL). Além disso, utilizei o ORM Sequelize.
 
 ## Utilização da aplicação
 
- Para utilizar essa aplicação, você pode utilizar um cliente de requisições HTTP de sua preferência (Insomnia, Postman, etc). Basta você adicionar o link do [servidor](z64iardwce.execute-api.us-east-1.amazonaws.com/dev/api/v1/payroll) e acessar através dos enpoints listados abaixo.
+ Para utilizar essa aplicação, você pode utilizar um cliente de requisições HTTP de sua preferência (Insomnia, Postman, etc). Basta você adicionar o link do seu servidor AWS e acessar através dos enpoints listados abaixo.
 
 ## API
 
